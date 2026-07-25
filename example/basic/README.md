@@ -43,9 +43,13 @@ gundamFitter -c example/basic/B03_load_dataset_selection_normparam.yaml
 ```
 
 Adds one free normalization parameter defined directly in the yaml under `parameterDefinitions`.
-The parameter (`dialType: Normalization`) multiplies the event weight for every event matched
-by the selection, with a flat prior at nominal value 1.0 and step size 0.1.
-This is the minimal config that makes a systematic parameter affect event counts.
+The parameter is named `Free normalization`; it applies a uniform weight multiplier
+(`dialType: Normalization`) to every event matched by the selection, regardless of kinematics —
+a single scale factor for the whole sample.
+Its prior is flat at nominal value 1.0 with step size 0.1, meaning the fitter starts at 1
+(no change to event counts) and is free to float in either direction with no Gaussian pull.
+This is the simplest possible systematic parameter: one number, no external binning file,
+and it is introduced here as the foundation for all dial studies that follow.
 
 ### Step 04 — Real data fit
 
