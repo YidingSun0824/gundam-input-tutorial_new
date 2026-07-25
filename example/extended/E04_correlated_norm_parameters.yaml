@@ -4,7 +4,7 @@
 # files inside advanced/ (no Super Advanced files are referenced).
 # Run from the project root: gundamFitter -c example/extended/E04_correlated_norm_parameters.yaml
 
-outputFolder: "./output/extended/E04"
+outputFolder: "./example/extended/output"
 
 fitterEngineConfig:
 

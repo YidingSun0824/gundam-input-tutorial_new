@@ -62,7 +62,7 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Normalization
-            applyOnDataSets: [ "my dataset 1" ]
+            applyOnDataSets: [ "My dataset 1" ]
 
       - name: "Flat Normalization parameter with selection condition"
         isEnabled: true
@@ -76,7 +76,7 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Normalization
-            applyOnDataSets: [ "my dataset 1" ]
+            applyOnDataSets: [ "My dataset 1" ]
             applyCondition: "selection == 1"
 
       # ── Graph ─────────────────────────────────────────────────────────────
@@ -122,7 +122,7 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "not-a-knot"
-            dialLeafName: par2_TGraph
+            dialLeafName: par3_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -141,7 +141,7 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "natural"
-            dialLeafName: par2_TGraph
+            dialLeafName: par3_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false

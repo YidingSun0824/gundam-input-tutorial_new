@@ -3,7 +3,7 @@
 # No parameters — demonstrates how to bin events into different topologies.
 # Run from the project root: gundamFitter -c example/extended/E01_multiple_selections.yaml
 
-outputFolder: "./output/extended/E01"
+outputFolder: "./example/extended/output"
 
 fitterEngineConfig:
 

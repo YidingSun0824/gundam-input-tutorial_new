@@ -1,8 +1,7 @@
-# Step 3: Dataset + selection + one normalization parameter.
-# A single free normalization parameter is read from parameters.txt (one bin
-# covering all pmu → one parameter).  This is the minimal config that makes a
-# systematic parameter affect event counts — the foundation for all dial studies.
-# Run from the project root: gundamFitter -c example/basic/B03_load_dataset_selection_normparam.yaml
+# Step 4: Dataset + selection + normalization parameter + real data fit.
+# Extends B03 by loading the same ROOT file as both model (MC) and observed data,
+# enabling a true data-vs-MC fit instead of an Asimov fit.
+# Run from the project root: gundamFitter -c example/basic/B04_load_dataset_selection_normparam_datafit.yaml
 
 outputFolder: "./example/basic/output"
 
@@ -15,19 +14,22 @@ fitterEngineConfig:
 
     dataSetList:
       - name: "My dataset 1"
-
+        isEnabled: true
+        selectedDataEntry: "data"
         model:
+         filePathList:
+           - "./example/advanced/inputs/datasets/mydataset.root"
 
-          filePathList:
-            - "./example/advanced/inputs/datasets/mydataset.root"
+         tree: "events"
+         nominalWeightFormula:
+           - "asimovWeight"
 
-          tree: "events"
+        data:
 
-          selectionCutFormula: "selection != -1"
-
-          nominalWeightFormula:
-            - "asimovWeight"
-            
+          - name: "data"
+            tree: "events"
+            filePathList:
+              - "./example/advanced/inputs/datasets/mydataset.root"
     propagatorConfig:
 
       sampleSetConfig:

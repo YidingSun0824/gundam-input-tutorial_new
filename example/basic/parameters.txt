@@ -1,2 +1,0 @@
-variables: pmu pmu
-0 30

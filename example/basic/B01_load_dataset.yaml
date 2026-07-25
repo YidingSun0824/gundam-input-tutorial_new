@@ -3,7 +3,7 @@
 # dataset-level cut (selection != -1) is applied.  No sample binning, no parameters.
 # Run from the project root: gundamFitter -c example/basic/B01_load_dataset.yaml
 
-outputFolder: "./output/basic/B01"
+outputFolder: "./example/basic/output"
 
 fitterEngineConfig:
 
@@ -37,3 +37,4 @@ fitterEngineConfig:
 
       parametersManagerConfig:
         parameterSetList: []
+

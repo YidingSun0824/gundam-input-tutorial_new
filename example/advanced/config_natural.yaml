@@ -1,4 +1,4 @@
-outputFolder: "./example/advanced/output"
+outputFolder: "./example/advanced/output/fit_natural"
 minGundamVersion: 1.9.0
 
 fitterEngineConfig:
@@ -14,4 +14,4 @@ fitterEngineConfig:
 
     propagatorConfig:
       sampleSetConfig: "./example/advanced/inputs/samples/config.yaml"
-      parametersManagerConfig: "./example/advanced/inputs/parameters/config.yaml"
+      parametersManagerConfig: "./example/advanced/inputs/parameters/config_natural.yaml"

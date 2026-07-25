@@ -4,7 +4,7 @@
 # response function knots are validated.
 # Run from the project root: gundamFitter -c example/extended/E03_spline_response_example.yaml
 
-outputFolder: "./output/extended/E03"
+outputFolder: "./example/extended/output"
 
 fitterEngineConfig:
 

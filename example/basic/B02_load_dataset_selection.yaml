@@ -4,7 +4,7 @@
 # No parameters — event weights are nominal (asimovWeight) only.
 # Run from the project root: gundamFitter -c example/basic/B02_load_dataset_selection.yaml
 
-outputFolder: "./output/basic/B02"
+outputFolder: "./example/basic/output"
 
 fitterEngineConfig:
 

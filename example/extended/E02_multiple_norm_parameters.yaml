@@ -3,7 +3,7 @@
 # parameters.txt (one parameter per reaction x pmu bin).
 # Run from the project root: gundamFitter -c example/extended/E02_multiple_norm_parameters.yaml
 
-outputFolder: "./output/extended/E02"
+outputFolder: "./example/extended/output"
 
 fitterEngineConfig:
 
