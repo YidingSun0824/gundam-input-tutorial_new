@@ -12,8 +12,8 @@ All commands are run from the **repository root**.
 ## Configuration structure
 
 ```
-example/advanced/
-├── config.yaml              Top-level fitter entry point
+example/advanced/simpleFit/
+├── mainConfig.yaml          Top-level fitter entry point
 └── inputs/
     ├── datasets/            Dataset definition (ROOT file path, tree, selection cut, weights)
     ├── samples/             Sample definitions and 2D sample binning tables
@@ -21,7 +21,7 @@ example/advanced/
     └── plots/               Plot generator configuration
 ```
 
-`config.yaml` is the single entry point. It references each sub-config by path
+`mainConfig.yaml` is the single entry point. It references each sub-config by path
 so that each concern (dataset loading, sample binning, parameter definitions,
 plotting) can be read and modified independently.
 
@@ -36,7 +36,7 @@ See [Building the input files](../../README.md#building-the-input-files) in the 
 ## Running
 
 ```
-gundamFitter -c example/advanced/config.yaml
+gundamFitter -c example/advanced/simpleFit/mainConfig.yaml
 ```
 
 ---

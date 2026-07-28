@@ -10,13 +10,11 @@ All commands are run from the **repository root**.
 
 | File | Purpose |
 |---|---|
-| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by steps 02 and 03 |
+| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by Basic02 and Basic03 |
 
 ---
 
-## Steps
-
-### Step 01 — Load dataset
+### Basic01 — Load dataset
 
 ```
 gundamFitter -c example/basic/B01_load_dataset.yaml
@@ -26,20 +24,20 @@ Loads the mock dataset and verifies that the event tree can be read.
 Applies the dataset-level cut (`selection != -1`).
 No sample binning and no parameters are defined.
 
-### Step 02 — Add event selection
+### Basic02 — Add event selection
 
 ```
-gundamFitter -c example/basic/B02_load_dataset_selection.yaml
+gundamFitter -c example/basic/B02_selection.yaml
 ```
 
 Adds one event selection (`selection == 1`) with 1D binning in muon momentum.
 The binning is read directly from the local file `selection_1d.txt`.
 No parameters are defined.
 
-### Step 03 — Add normalization parameter
+### Basic03 — Add normalization parameter
 
 ```
-gundamFitter -c example/basic/B03_load_dataset_selection_normparam.yaml
+gundamFitter -c example/basic/B03_normparam.yaml
 ```
 
 Adds one free normalization parameter defined directly in the yaml under `parameterDefinitions`.
@@ -51,10 +49,10 @@ Its prior is flat at nominal value 1.0 with step size 0.1, meaning the fitter st
 This is the simplest possible systematic parameter: one number, no external binning file,
 and it is introduced here as the foundation for all dial studies that follow.
 
-### Step 04 — Real data fit
+### Basic04 — Real data fit
 
 ```
-gundamFitter -c example/basic/B04_load_dataset_selection_normparam_datafit.yaml
+gundamFitter -c example/basic/B04_datafit.yaml
 ```
 
 Extends B03 by enabling a real data-vs-MC fit: `selectedDataEntry: "data"` tells GUNDAM

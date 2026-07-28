@@ -8,13 +8,13 @@ The tutorial is organized into three progressive packages under `example/`:
 example/
 ├── basic/      Steps 01–03: dataset loading, selection, one normalization parameter
 ├── extended/   Steps 04–07: multiple selections, spline dials, correlated parameters
-└── advanced/   Full modular configuration (config.yaml + inputs/ sub-tree)
+└── advanced/   Full modular configuration (simpleFit/ sub-tree)
 
-XGEN/           Mock dataset generator (buildInputRootFile.C)
+mockDatasetGen/ Mock dataset generator (buildInputRootFile.C)
 plotting/       Response-function inspection macros
 ```
 
-The entry point for the full modular run is `example/advanced/config.yaml`.
+The entry point for the full modular run is `example/advanced/simpleFit/mainConfig.yaml`.
 
 The old deep structure (`inputs/fitter/likelihood/...`) has been moved to `_archive/` for reference.
 
@@ -26,15 +26,15 @@ Generate the mock ROOT dataset before running any fitter step.
 Run the build macro from the repository root, then move the output to the expected location:
 
 ```bash
-root XGEN/buildInputRootFile.C
-mv mydataset.root example/advanced/inputs/datasets/mydataset.root
+root mockDatasetGen/buildInputRootFile.C
+mv mydataset.root example/advanced/simpleFit/inputs/datasets/mydataset.root
 ```
 
 The expected output from the build macro:
 
 ```
-Processing XGEN/buildInputRootFile.C...
-File writen in ./example/advanced/inputs/datasets/mydataset.root:/
+Processing mockDatasetGen/buildInputRootFile.C...
+File writen in ./example/advanced/simpleFit/inputs/datasets/mydataset.root:/
 ```
 
 ---
@@ -45,11 +45,11 @@ The `basic/` and `extended/` packages keep their small `.txt` binning and select
 tables right next to each config file.
 Every step is fully standalone and can be run in isolation without touching any
 other package — the only shared resource is the ROOT dataset in
-`example/advanced/inputs/datasets/`.
+`example/advanced/simpleFit/inputs/datasets/`.
 
 The `advanced/` package mirrors how a real large-scale analysis is organized:
 configuration is split across a dedicated `inputs/` sub-tree (datasets, samples,
-parameters, plots), with a single `config.yaml` entry point that references each
+parameters, plots), with a single `mainConfig.yaml` entry point that references each
 sub-config by path.
 This separation makes each concern independently readable and editable.
 
@@ -61,23 +61,23 @@ This separation makes each concern independently readable and editable.
 
 ```bash
 gundamFitter -c example/basic/B01_load_dataset.yaml
-gundamFitter -c example/basic/B02_load_dataset_selection.yaml
-gundamFitter -c example/basic/B03_load_dataset_selection_normparam.yaml
+gundamFitter -c example/basic/B02_selection.yaml
+gundamFitter -c example/basic/B03_normparam.yaml
 ```
 
 ### Extended examples (steps 04–07)
 
 ```bash
 gundamFitter -c example/extended/E01_multiple_selections.yaml
-gundamFitter -c example/extended/E02_multiple_norm_parameters.yaml
-gundamFitter -c example/extended/E03_spline_response_example.yaml
-gundamFitter -c example/extended/E04_correlated_norm_parameters.yaml
+gundamFitter -c example/extended/E02_multiple_normparam.yaml
+gundamFitter -c example/extended/E03_response.yaml
+gundamFitter -c example/extended/E04_correlated_normparam.yaml
 ```
 
 ### Full modular run
 
 ```bash
-gundamFitter -c example/advanced/config.yaml -t 4
+gundamFitter -c example/advanced/simpleFit/mainConfig.yaml -t 4
 ```
 
 ---

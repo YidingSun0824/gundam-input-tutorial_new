@@ -1,4 +1,4 @@
-outputFolder: "./example/advanced/output/fit_not_a_knot"
+outputFolder: "./example/advanced/output"
 minGundamVersion: 1.9.0
 
 fitterEngineConfig:
@@ -14,4 +14,4 @@ fitterEngineConfig:
 
     propagatorConfig:
       sampleSetConfig: "./example/advanced/simpleFit/inputs/samples/config.yaml"
-      parametersManagerConfig: "./example/advanced/simpleFit/inputs/parameters/config_not_a_knot.yaml"
+      parametersManagerConfig: "./example/advanced/simpleFit/inputs/parameters/config.yaml"

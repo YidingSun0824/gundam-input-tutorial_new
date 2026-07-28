@@ -4,7 +4,7 @@
   model:
 
     filePathList:
-      - "./example/advanced/inputs/datasets/mydataset.root"
+      - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
 
     tree: "events"
 

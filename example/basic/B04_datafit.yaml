@@ -1,7 +1,7 @@
 # Step 4: Dataset + selection + normalization parameter + real data fit.
 # Extends B03 by loading the same ROOT file as both model (MC) and observed data,
 # enabling a true data-vs-MC fit instead of an Asimov fit.
-# Run from the project root: gundamFitter -c example/basic/B04_load_dataset_selection_normparam_datafit.yaml
+# Run from the project root: gundamFitter -c example/basic/B04_datafit.yaml
 
 outputFolder: "./example/basic/output"
 
@@ -18,7 +18,7 @@ fitterEngineConfig:
         selectedDataEntry: "data"
         model:
          filePathList:
-           - "./example/advanced/inputs/datasets/mydataset.root"
+           - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
 
          tree: "events"
          nominalWeightFormula:
@@ -29,7 +29,7 @@ fitterEngineConfig:
           - name: "data"
             tree: "events"
             filePathList:
-              - "./example/advanced/inputs/datasets/mydataset.root"
+              - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
     propagatorConfig:
 
       sampleSetConfig:

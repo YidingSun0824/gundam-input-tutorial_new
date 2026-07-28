@@ -1,7 +1,8 @@
-# Step 5: Multiple free normalization parameters.
-# Builds on step 4. Adds 10 free normalization parameters generated from
-# parameters.txt (one parameter per reaction x pmu bin).
-# Run from the project root: gundamFitter -c example/extended/E02_multiple_norm_parameters.yaml
+# Step 7: Correlated normalization parameters via covariance matrix.
+# Builds on step 4. Replaces free norm parameters with a covariance-matrix-
+# driven parameter set.  The covariance matrix and binning are read from local
+# files inside advanced/ (no Super Advanced files are referenced).
+# Run from the project root: gundamFitter -c example/extended/E04_correlated_normparam.yaml
 
 outputFolder: "./example/extended/output"
 
@@ -18,7 +19,7 @@ fitterEngineConfig:
         model:
 
           filePathList:
-            - "./example/advanced/inputs/datasets/mydataset.root"
+            - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
 
           tree: "events"
 
@@ -51,10 +52,13 @@ fitterEngineConfig:
 
       parametersManagerConfig:
         parameterSetList:
-          - name: "Free normalization parameters"
+          - name: "Correlated normalization parameters"
             isEnabled: true
-            nominalStepSize: 0.1
+            useEigenDecompInFit: false
+            allowPca: false
             useOnlyOneParameterPerEvent: true
+            covarianceMatrixFilePath: "./example/extended/covarianceFile.root"
+            covarianceMatrixTMatrixD: "covarianceMatrix"
             dialSetDefinitions:
               - applyOnDataSets: [ "My dataset 1" ]
-                parametersBinningPath: "./example/extended/parameters.txt"
+                parametersBinningPath: "./example/extended/correlated_parameters.txt"

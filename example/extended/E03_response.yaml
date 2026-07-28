@@ -1,8 +1,8 @@
-# Step 7: Correlated normalization parameters via covariance matrix.
-# Builds on step 4. Replaces free norm parameters with a covariance-matrix-
-# driven parameter set.  The covariance matrix and binning are read from local
-# files inside advanced/ (no Super Advanced files are referenced).
-# Run from the project root: gundamFitter -c example/extended/E04_correlated_norm_parameters.yaml
+# Step 6: Spline response function (disabled example).
+# Builds on step 5. Adds a Spline dial reading the par2_TGraph branch from the
+# dataset.  The Spline parameter set is disabled (isEnabled: false) until the
+# response function knots are validated.
+# Run from the project root: gundamFitter -c example/extended/E03_response.yaml
 
 outputFolder: "./example/extended/output"
 
@@ -19,7 +19,7 @@ fitterEngineConfig:
         model:
 
           filePathList:
-            - "./example/advanced/inputs/datasets/mydataset.root"
+            - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
 
           tree: "events"
 
@@ -52,13 +52,30 @@ fitterEngineConfig:
 
       parametersManagerConfig:
         parameterSetList:
-          - name: "Correlated normalization parameters"
+          - name: "Free normalization parameters"
             isEnabled: true
-            useEigenDecompInFit: false
-            allowPca: false
+            nominalStepSize: 0.1
             useOnlyOneParameterPerEvent: true
-            covarianceMatrixFilePath: "./example/extended/covarianceFile.root"
-            covarianceMatrixTMatrixD: "covarianceMatrix"
             dialSetDefinitions:
               - applyOnDataSets: [ "My dataset 1" ]
-                parametersBinningPath: "./example/extended/correlated_parameters.txt"
+                parametersBinningPath: "./example/extended/parameters.txt"
+
+          - name: "Spline response (disabled)"
+            isEnabled: false
+            nominalStepSize: 0.1
+            parameterDefinitions:
+              - name: "par2_spline"
+                isEnabled: false
+                priorValue: 1.0
+                isFixed: false
+                isThrown: false
+                parameterStepSize: 0.1
+                parameterLimits: [-3.0, 3.0]
+                dialSetDefinitions:
+                  - dialType: Spline
+                    dialSubType: "not-a-knot"
+                    dialLeafName: par2_TGraph
+                    applyOnDataSets: [ "My dataset 1" ]
+                    allowDialExtrapolation: false
+                    minDialResponse: 0.0
+                    maxDialResponse: 3.0

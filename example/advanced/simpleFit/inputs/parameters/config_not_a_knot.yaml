@@ -4,12 +4,12 @@ parameterSetList:
     isEnabled: true
     useEigenDecompInFit: false
     allowPca: false
-    covarianceMatrixFilePath: "./example/advanced/inputs/parameters/flux/covarianceFile.root"
+    covarianceMatrixFilePath: "./example/advanced/simpleFit/inputs/parameters/flux/covarianceFile.root"
     covarianceMatrixTMatrixD: "covarianceMatrix"
     useOnlyOneParameterPerEvent: true
     dialSetDefinitions:
       - applyOnDataSets: [ "*" ]
-        parametersBinningPath: "./example/advanced/inputs/parameters/flux/binning.txt"
+        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/flux/binning.txt"
         printDialsSummary: true
     printDialSetsSummary: true
 
@@ -19,7 +19,7 @@ parameterSetList:
     useOnlyOneParameterPerEvent: true
     dialSetDefinitions:
       - applyOnDataSets: [ "*" ]
-        parametersBinningPath: "./example/advanced/inputs/parameters/free/binning.txt"
+        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/free/binning.txt"
 
   - name: "Dummy Systematics"
     isEnabled: true

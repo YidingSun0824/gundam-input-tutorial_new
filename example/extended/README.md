@@ -12,18 +12,16 @@ All commands are run from the **repository root**.
 
 | File | Purpose |
 |---|---|
-| `selection_1d.txt` | 1D binning in pmu (6 bins) — used by steps 04–07 |
-| `selection_2d.txt` | 2D binning in pmu × pp (33 bins) — used by steps 04–07 |
-| `selection_3d.txt` | 3D binning in enu × pmu × pp (8 bins) — used by steps 04–07 |
-| `parameters.txt` | Free normalization parameter binning (reaction × pmu, 10 bins) — used by steps 05–06 |
-| `correlated_parameters.txt` | Parameter binning for the correlated set (enu, 11 bins) — used by step 07 |
-| `covarianceFile.root` | Covariance matrix ROOT file for the correlated parameter set — used by step 07 |
+| `selection_1d.txt` | 1D binning in pmu (6 bins) — used by Extended01–Extended04 |
+| `selection_2d.txt` | 2D binning in pmu × pp (33 bins) — used by Extended01–Extended04 |
+| `selection_3d.txt` | 3D binning in enu × pmu × pp (8 bins) — used by Extended01–Extended04 |
+| `parameters.txt` | Free normalization parameter binning (reaction × pmu, 10 bins) — used by Extended02–Extended03 |
+| `correlated_parameters.txt` | Parameter binning for the correlated set (enu, 11 bins) — used by Extended04 |
+| `covarianceFile.root` | Covariance matrix ROOT file for the correlated parameter set — used by Extended04 |
 
 ---
 
-## Steps
-
-### Step 04 — Multiple selections
+### Extended01 — Multiple selections
 
 ```
 gundamFitter -c example/extended/E01_multiple_selections.yaml
@@ -37,19 +35,19 @@ Defines three concurrent samples, each with a different binning dimensionality:
 
 No parameters are defined.
 
-### Step 05 — Multiple free normalization parameters
+### Extended02 — Multiple free normalization parameters
 
 ```
-gundamFitter -c example/extended/E02_multiple_norm_parameters.yaml
+gundamFitter -c example/extended/E02_multiple_normparam.yaml
 ```
 
 Adds 10 free normalization parameters generated from `parameters.txt`.
 Each row in `parameters.txt` defines one parameter bin in reaction × pmu space.
 
-### Step 06 — Spline response example
+### Extended03 — Spline response example
 
 ```
-gundamFitter -c example/extended/E03_spline_response_example.yaml
+gundamFitter -c example/extended/E03_response.yaml
 ```
 
 Extends step 05 with a Spline dial (`dialType: Spline`, `dialSubType: not-a-knot`)
@@ -57,10 +55,10 @@ reading the per-event response function from the `par2_TGraph` branch.
 The Spline parameter set is disabled (`isEnabled: false`) until the response
 function knots have been validated.
 
-### Step 07 — Correlated normalization parameters
+### Extended04 — Correlated normalization parameters
 
 ```
-gundamFitter -c example/extended/E04_correlated_norm_parameters.yaml
+gundamFitter -c example/extended/E04_correlated_normparam.yaml
 ```
 
 Replaces free normalization parameters with a covariance-matrix-driven set.

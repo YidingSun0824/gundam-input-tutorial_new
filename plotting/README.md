@@ -7,7 +7,7 @@ This folder contains ROOT C++ macros for inspecting the response functions store
 `drawResponseFunctions.C` reads event-by-event systematic response functions from the `events` TTree in:
 
 ```text
-example/advanced/inputs/datasets/mydataset.root
+example/advanced/simpleFit/inputs/datasets/mydataset.root
 ```
 
 The response functions are stored in the following branches:
@@ -19,7 +19,7 @@ The response functions are stored in the following branches:
 From the repository root, run:
 
 ```bash
-root -l 'plotting/drawResponseFunctions.C("example/advanced/inputs/datasets/mydataset.root",5)'
+root -l 'plotting/drawResponseFunctions.C("example/advanced/simpleFit/inputs/datasets/mydataset.root",5)'
 ```
 
 The second argument specifies the number of events to plot. In this example, the macro draws the response functions for the first five events.

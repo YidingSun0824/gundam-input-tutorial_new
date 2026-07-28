@@ -8,10 +8,10 @@ fitterEngineConfig:
 
   likelihoodInterfaceConfig:
 
-    dataSetList: "./example/advanced/inputs/datasets/config.yaml"
+    dataSetList: "./example/advanced/simpleFit/inputs/datasets/config.yaml"
 
-    plotGeneratorConfig: "./example/advanced/inputs/plots/config.yaml"
+    plotGeneratorConfig: "./example/advanced/simpleFit/inputs/plots/config.yaml"
 
     propagatorConfig:
-      sampleSetConfig: "./example/advanced/inputs/samples/config.yaml"
-      parametersManagerConfig: "./example/advanced/inputs/parameters/config_natural.yaml"
+      sampleSetConfig: "./example/advanced/simpleFit/inputs/samples/config.yaml"
+      parametersManagerConfig: "./example/advanced/simpleFit/inputs/parameters/config_natural.yaml"

@@ -11,7 +11,7 @@ parameterSetList:
     useEigenDecompInFit: false # false by default
     allowPca: false # false by default
 
-    covarianceMatrixFilePath: "./example/advanced/inputs/parameters/flux/covarianceFile.root"
+    covarianceMatrixFilePath: "./example/advanced/simpleFit/inputs/parameters/flux/covarianceFile.root"
     covarianceMatrixTMatrixD: "covarianceMatrix"
 
     # knowing that makes it faster to load
@@ -19,7 +19,7 @@ parameterSetList:
 
     dialSetDefinitions:
       - applyOnDataSets: [ "*" ]
-        parametersBinningPath: "./example/advanced/inputs/parameters/flux/binning.txt"
+        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/flux/binning.txt"
         printDialsSummary: true
     printDialSetsSummary: true
 
@@ -36,7 +36,7 @@ parameterSetList:
     dialSetDefinitions:
       - applyOnDataSets: [ "*" ]
         # the true variables will be defined here:
-        parametersBinningPath: "./example/advanced/inputs/parameters/free/binning.txt"
+        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/free/binning.txt"
 #        applyCondition: ""
 
 
@@ -303,7 +303,7 @@ parameterSetList:
             dialLeafName: par1_TGraph        # placeholder
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
-            # dialsFilePath: "./example/advanced/inputs/parameters/surface/surface.root"
+            # dialsFilePath: "./example/advanced/simpleFit/inputs/parameters/surface/surface.root"
 
       # ── Tabulated ─────────────────────────────────────────────────────────
       # Weight read from a pre-computed lookup table.
