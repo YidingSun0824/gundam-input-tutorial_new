@@ -6,7 +6,6 @@ __pycache__/
 .DS_Store
 
 # ROOT / GUNDAM generated outputs
-*.root
 *.log
 *.out
 
