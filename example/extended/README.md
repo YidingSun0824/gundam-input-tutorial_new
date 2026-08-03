@@ -51,9 +51,7 @@ gundamFitter -c example/extended/E03_response.yaml
 ```
 
 Extends step 05 with a Spline dial (`dialType: Spline`, `dialSubType: not-a-knot`)
-reading the per-event response function from the `par2_TGraph` branch.
-The Spline parameter set is disabled (`isEnabled: false`) until the response
-function knots have been validated.
+reading the per-event response function from the `par1_TGraph` branch.
 
 ### Extended04 — Correlated normalization parameters
 

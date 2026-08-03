@@ -1,7 +1,7 @@
-# Step 6: Spline response function (disabled example).
-# Builds on step 5. Adds a Spline dial reading the par2_TGraph branch from the
-# dataset.  The Spline parameter set is disabled (isEnabled: false) until the
-# response function knots are validated.
+# Step 6: Spline response function
+# Builds on Step 5 by adding a parameter whose response function is read from the
+# `par1_TGraph` branch in the input file. ROOT's TSpline interpolation is applied
+# to this dial.
 # Run from the project root: gundamFitter -c example/extended/E03_response.yaml
 
 outputFolder: "./example/extended/output"
@@ -19,7 +19,7 @@ fitterEngineConfig:
         model:
 
           filePathList:
-            - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
+            - "./mockDatasetGen/mydataset.root"
 
           tree: "events"
 
@@ -60,12 +60,12 @@ fitterEngineConfig:
               - applyOnDataSets: [ "My dataset 1" ]
                 parametersBinningPath: "./example/extended/parameters.txt"
 
-          - name: "Spline response (disabled)"
-            isEnabled: false
+          - name: "Spline response"
+            isEnabled: true
             nominalStepSize: 0.1
             parameterDefinitions:
-              - name: "par2_spline"
-                isEnabled: false
+              - name: "par1_spline"
+                isEnabled: true
                 priorValue: 1.0
                 isFixed: false
                 isThrown: false
@@ -74,8 +74,9 @@ fitterEngineConfig:
                 dialSetDefinitions:
                   - dialType: Spline
                     dialSubType: "not-a-knot"
-                    dialLeafName: par2_TGraph
+                    dialLeafName: par1_TGraph
                     applyOnDataSets: [ "My dataset 1" ]
                     allowDialExtrapolation: false
                     minDialResponse: 0.0
                     maxDialResponse: 3.0
+

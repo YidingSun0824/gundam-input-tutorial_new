@@ -16,20 +16,21 @@ fitterEngineConfig:
       - name: "My dataset 1"
         isEnabled: true
         selectedDataEntry: "data"
+
         model:
          filePathList:
-           - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
+            - "./mockDatasetGen/mydataset.root"
 
          tree: "events"
          nominalWeightFormula:
            - "asimovWeight"
 
         data:
-
           - name: "data"
             tree: "events"
             filePathList:
-              - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
+            - "./mockDatasetGen/mydataset.root"
+
     propagatorConfig:
 
       sampleSetConfig:

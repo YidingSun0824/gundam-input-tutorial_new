@@ -10,7 +10,7 @@ All commands are run from the **repository root**.
 
 | File | Purpose |
 |---|---|
-| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by Basic02 and Basic03 |
+| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by Basic02, Basic03, Basic04 |
 
 ---
 
@@ -23,16 +23,18 @@ gundamFitter -c example/basic/B01_load_dataset.yaml
 Loads the mock dataset and verifies that the event tree can be read.
 Applies the dataset-level cut (`selection != -1`).
 No sample binning and no parameters are defined.
+Since there isn't binning provided the run will exit with error
 
 ### Basic02 — Add event selection
 
 ```
-gundamFitter -c example/basic/B02_selection.yaml
+gundamFitter -d -c example/basic/B02_selection.yaml
 ```
 
 Adds one event selection (`selection == 1`) with 1D binning in muon momentum.
 The binning is read directly from the local file `selection_1d.txt`.
 No parameters are defined.
+Run a dry run using the option `-d`
 
 ### Basic03 — Add normalization parameter
 
@@ -47,7 +49,7 @@ a single scale factor for the whole sample.
 Its prior is flat at nominal value 1.0 with step size 0.1, meaning the fitter starts at 1
 (no change to event counts) and is free to float in either direction with no Gaussian pull.
 This is the simplest possible systematic parameter: one number, no external binning file,
-and it is introduced here as the foundation for all dial studies that follow.
+and it is introduced here as the foundation for all dial studies that follow. The Asimov fit is performed in this example.
 
 ### Basic04 — Real data fit
 

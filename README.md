@@ -61,14 +61,16 @@ This separation makes each concern independently readable and editable.
 
 ```bash
 gundamFitter -c example/basic/B01_load_dataset.yaml
-gundamFitter -c example/basic/B02_selection.yaml
+gundamFitter -d -c example/basic/B02_selection.yaml
 gundamFitter -c example/basic/B03_normparam.yaml
+gundamFitter -c example/basic/B04_datafit.yaml
+
 ```
 
 ### Extended examples (steps 04–07)
 
 ```bash
-gundamFitter -c example/extended/E01_multiple_selections.yaml
+gundamFitter -d -c example/extended/E01_multiple_selections.yaml
 gundamFitter -c example/extended/E02_multiple_normparam.yaml
 gundamFitter -c example/extended/E03_response.yaml
 gundamFitter -c example/extended/E04_correlated_normparam.yaml
@@ -77,7 +79,7 @@ gundamFitter -c example/extended/E04_correlated_normparam.yaml
 ### Full modular run
 
 ```bash
-gundamFitter -c example/advanced/simpleFit/mainConfig.yaml -t 4
+gundamFitter -a -c example/advanced/simpleFit/mainConfig.yaml -t 4
 ```
 
 ---

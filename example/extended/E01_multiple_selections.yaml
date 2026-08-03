@@ -1,7 +1,8 @@
 # Step 4: Multiple selections with 1D, 2D, and 3D binning.
 # Three concurrent samples are defined, each using a local binning TXT file.
 # No parameters — demonstrates how to bin events into different topologies.
-# Run from the project root: gundamFitter -c example/extended/E01_multiple_selections.yaml
+# Run a dry run: -d
+# Run from the project root: gundamFitter -d -c example/extended/E01_multiple_selections.yaml
 
 outputFolder: "./example/extended/output"
 
@@ -18,7 +19,7 @@ fitterEngineConfig:
         model:
 
           filePathList:
-            - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
+            - "./mockDatasetGen/mydataset.root"
 
           tree: "events"
 

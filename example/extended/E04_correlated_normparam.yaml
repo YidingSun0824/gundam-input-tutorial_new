@@ -1,7 +1,6 @@
 # Step 7: Correlated normalization parameters via covariance matrix.
 # Builds on step 4. Replaces free norm parameters with a covariance-matrix-
-# driven parameter set.  The covariance matrix and binning are read from local
-# files inside advanced/ (no Super Advanced files are referenced).
+# driven parameter set.
 # Run from the project root: gundamFitter -c example/extended/E04_correlated_normparam.yaml
 
 outputFolder: "./example/extended/output"
@@ -19,7 +18,7 @@ fitterEngineConfig:
         model:
 
           filePathList:
-            - "./example/advanced/simpleFit/inputs/datasets/mydataset.root"
+            - "./mockDatasetGen/mydataset.root"
 
           tree: "events"
 

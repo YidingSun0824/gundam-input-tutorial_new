@@ -20,3 +20,4 @@ temp/
 .vscode/
 inputs/datasets/mydataset.root
 response_functions.pdf
+*.pdf

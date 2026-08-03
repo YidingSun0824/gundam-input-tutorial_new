@@ -1,31 +1,32 @@
 
-
-
-
 parameterSetList:
+  
   - name: "List of correlated normalization parameters"
     isEnabled: true # default: true
+    
+    # Throw this set when generating toy data
+    enableThrowToyParameters: false
 
     # example of parameters defined with a covariance matrix
 
-    useEigenDecompInFit: false # false by default
-    allowPca: false # false by default
+    enableEigenDecomp: false # false by default
+    enablePca: false # false by default
 
-    covarianceMatrixFilePath: "./example/advanced/simpleFit/inputs/parameters/flux/covarianceFile.root"
-    covarianceMatrixTMatrixD: "covarianceMatrix"
+    parameterDefinitionFilePath: "./example/advanced/simpleFit/inputs/parameters/correlated/covarianceFile.root"
+    covarianceMatrix: "covarianceMatrix"
 
     # knowing that makes it faster to load
     useOnlyOneParameterPerEvent: true
 
     dialSetDefinitions:
       - applyOnDataSets: [ "*" ]
-        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/flux/binning.txt"
-        printDialsSummary: true
-    printDialSetsSummary: true
+        parametersBinningPath: "./example/advanced/simpleFit/inputs/parameters/correlated/binning.txt"
+        printDialSummary: true
+    printDialSetSummary: true
 
 
   - name: "List of Free Normalization parameters"
-    isEnabled: true # default: true
+    isEnabled: false # default: true
 
     nominalStepSize: 0.1
 
@@ -48,8 +49,7 @@ parameterSetList:
     parameterDefinitions:
 
       # ── Normalization ──────────────────────────────────────────────────────
-      # Multiplies matched events by the parameter value.  No external input.
-      # type-specific option: parametersBinningPath (optional, bin-by-bin norm)
+      # Simple multiplicative factor; no sub-type needed
       - name: "Gaussian Normalization parameter"
         isEnabled: true
         priorType: Gaussian
@@ -77,14 +77,13 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Normalization
             applyOnDataSets: [ "My dataset 1" ]
-            applyCondition: "selection == 1"
+            applyCondition: "[selection] == 1"
 
       # ── Graph ─────────────────────────────────────────────────────────────
-      # Per-event linear interpolation from a TClonesArray<TGraph> branch.
-      # Same branch requirement as Spline.
-      # type-specific options: dialLeafName, dialsFilePath, dialsList
+      # Uses piecewise-linear interpolation of the parameter response function
+      # stored in a TClonesArray<TGraph> branch to compute the event weight.
       - name: "Graph interpolation parameter"
-        isEnabled: false
+        isEnabled: true
         priorType: Gaussian
         priorValue: 1.0
         isFixed: false
@@ -95,7 +94,7 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Graph
-            dialLeafName: par3_TGraph
+            dialLeafName: par1_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             minDialResponse: 0.0
@@ -103,15 +102,16 @@ parameterSetList:
 
       # ── Spline ────────────────────────────────────────────────────────────
       # Per-event spline built from a TClonesArray<TGraph> branch.
-      # All entries below are disabled documentation examples; enable only after
-      # the spline response format (par_value, weight knots) is fully validated.
-      # type-specific options: dialLeafName, dialsFilePath, dialsList, dialSubType
       #   dialSubType: not-a-knot | natural | catmull-rom | akima
       #                monotonic, <any of the above>
       #                uniformity(<tolerance>)   e.g. uniformity(1E-3)
+      #                ROOT
+
 
       - name: "Spline: not-a-knot (default)"
-        isEnabled: false
+      # Same as ROOT TSpline3). 
+      # Guarantees the third derivative is zero at the first two and last two knots.
+        isEnabled: true
         priorValue: 1.0
         isFixed: false
         isThrown: false
@@ -122,7 +122,7 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "not-a-knot"
-            dialLeafName: par3_TGraph
+            dialLeafName: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -130,6 +130,7 @@ parameterSetList:
             maxDialResponse: 3.0
 
       - name: "Spline: natural"
+      # Guarantees the second derivative is zero at the end knots.
         isEnabled: false
         priorValue: 1.0
         isFixed: false
@@ -141,7 +142,7 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "natural"
-            dialLeafName: par3_TGraph
+            dialLeafName: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -149,6 +150,10 @@ parameterSetList:
             maxDialResponse: 3.0
 
       - name: "Spline: catmull-rom"
+      # Estimate the slopes using the Catmull-Rom criteria.  This
+      # uses the average slopes for the points before and after (also known as
+      # the "pixar" spline based on its use in animation.
+      # Requires uniformly spaced knots.
         isEnabled: false
         priorValue: 1.0
         isFixed: false
@@ -168,6 +173,7 @@ parameterSetList:
             maxDialResponse: 3.0
 
       - name: "Spline: akima"
+      # Estimate the slopes using the Akima criteria.
         isEnabled: false
         priorValue: 1.0
         isFixed: false
@@ -179,12 +185,19 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "akima"
-            dialLeafName: par3_TGraph
+            dialLeafName: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
             minDialResponse: 0.0
             maxDialResponse: 3.0
+
+    # Monotonic : Apply the monotonic critera to the slopes before they are
+    # used.  This applies to "not-a-knot", "natural" "catmull-rom", and "akima"
+    # splines.  In each case, the slopes are first estimated using the defined
+    # algorithm, and then the Fritsche-Carlson criteria is used to adjust the
+    # slopes so that the function is monotonic at every point, except for cusps
+    # where the slope will be zero.
 
       - name: "Spline: monotonic, not-a-knot"
         isEnabled: false
@@ -255,7 +268,7 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "monotonic, akima"
-            dialLeafName: par3_TGraph
+            dialLeafName: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -263,6 +276,10 @@ parameterSetList:
             maxDialResponse: 3.0
 
       - name: "Spline: uniformity(1E-3)"
+      # A spline is considered to have uniform point
+      # spacing when the point spacing stays within this tolerance.  For example,
+      # `uniformity(1E-3)` means that the difference between the point to point
+      # spacings must stay below `1E-3`.
         isEnabled: false
         priorValue: 1.0
         isFixed: false
@@ -274,6 +291,26 @@ parameterSetList:
         dialSetDefinitions:
           - dialType: Spline
             dialSubType: "uniformity(1E-3)"
+            dialLeafName: par2_TGraph
+            applyOnDataSets: [ "My dataset 1" ]
+            allowDialExtrapolation: false
+            useMirrorDial: false
+            minDialResponse: 0.0
+            maxDialResponse: 3.0
+
+      - name: "Spline: ROOT"
+      # Forces use of an actual ROOT TSpline3 for evaluation.
+        isEnabled: false
+        priorValue: 1.0
+        isFixed: false
+        isThrown: false
+        parameterStepSize: 0.1
+        parameterLimits: [0.0, 2.0]
+        physicalLimits: [0.0, 2.0]
+        throwLimits: [0.0, 2.0]
+        dialSetDefinitions:
+          - dialType: Spline
+            dialSubType: "ROOT"
             dialLeafName: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
@@ -362,4 +399,22 @@ parameterSetList:
             applyOnDataSets: [ "My dataset 1" ]
             # formula: "1 + [0]*x"           # replace with actual ROOT expression
 
-
+      # ── CompiledLibDial ───────────────────────────────────────────────────────────
+      # Computes the dial weight by dynamically loading an external shared library
+      # and calling its `evalVariable` function for each event. This allows custom
+      # weight calculations to be implemented in compiled code
+      - name: "Par8"
+        isEnabled: false
+        priorValue: 1.0
+        isFixed: false
+        isThrown: false
+        parameterStepSize: 0.1
+        parameterLimits: [0.0, 2.0]
+        physicalLimits: [0.0, 2.0]
+        throwLimits: [0.0, 2.0]
+        dialSetDefinitions:
+          - dialType: CompiledLibDial
+            dialConfig:
+              libraryFile: "/path/to/myWeightLib.so"
+              messageOnError: "Failed to load myWeightLib.so"
+            applyOnDataSets: ["My dataset 1"]
