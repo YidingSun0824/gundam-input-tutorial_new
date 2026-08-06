@@ -8,7 +8,7 @@ canvasParameters:
 varDictionaries:
   - name: "reaction"
     dictionary:
-      - { value: 0, title: "UNDEFINED", color: 1 } # kBlack
+      - { value: 0, title: "UNDEFINED", colorRoot: 1 } # kBlack
       - { value: 1, title: "#nu_{#mu} + A #rightarrow reaction 1", colorHex: "#cfe8ff" }
       - { value: 2, title: "#nu_{#mu} + A #rightarrow reaction 2", colorHex: "#aabfe0" }
       - { value: 3, title: "#nu_{#mu} + A #rightarrow reaction 3", colorHex: "#9b9ed2" }
@@ -23,8 +23,8 @@ histogramsDefinition:
   - varToPlot: "pmu"
     splitVars: [ "", "reaction" ]
     useSampleBinning: true # if not possible, error
-    rescaleAsBinWidth: true # default true -> to look like a PDF
-    rescaleBinFactor: 0.1 # / 100 MeV
+#    rescaleAsBinWidth: true # default true -> to look like a PDF
+#    rescaleBinFactor: 0.1 # / 100 MeV
 #    xMax: 2000.
     xTitle: "p_{#mu} (GeV)"
     yTitle: "Counts / 100 MeV"

@@ -130,7 +130,11 @@ void buildInputRootFile(){
 
   file->WriteObject(tree, "events");
   file->Close();
-  std::cout << "File writen in " << file->GetPath() << std::endl;
+  
+  TString fullPath = TString(gSystem->WorkingDirectory()) + "/" + file->GetName();
+  fullPath.ReplaceAll("/./", "/");
+
+  std::cout << "File written to: " << fullPath << std::endl;
 
   exit(0);
 }

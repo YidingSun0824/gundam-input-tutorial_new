@@ -6,7 +6,6 @@ __pycache__/
 .DS_Store
 
 # ROOT / GUNDAM generated outputs
-*.root
 *.log
 *.out
 
@@ -20,3 +19,4 @@ temp/
 .vscode/
 inputs/datasets/mydataset.root
 response_functions.pdf
+*.pdf
