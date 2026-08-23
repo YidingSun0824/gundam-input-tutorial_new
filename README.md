@@ -7,7 +7,8 @@ The tutorial is organized into three progressive packages under `example/`:
 ```text
 example/
 ├── basic/      Steps 01–03: dataset loading, selection, one normalization parameter
-├── extended/   Steps 04–07: multiple selections, spline dials, correlated parameters
+├── extended/   Steps 04–10: multiple selections, spline dials, correlated parameters,
+│               interpolation method comparison
 └── advanced/   Full modular configuration (simpleFit/ sub-tree)
 
 mockDatasetGen/ Mock dataset generator (buildInputRootFile.C)
@@ -16,7 +17,23 @@ plotting/       Response-function inspection macros
 
 The entry point for the full modular run is `example/advanced/simpleFit/mainConfig.yaml`.
 
-The old deep structure (`inputs/fitter/likelihood/...`) has been moved to `_archive/` for reference.
+---
+
+## Environment setup
+
+`env.sh` at the repository root sets up ROOT and puts `gundamFitter` on `PATH`
+(via `GUNDAM_INSTALL`).
+
+**Before sourcing it, you must edit it first.** It hardcodes the paths from the
+machine it was written on — `GUNDAM_ROOT`, `GUNDAM_INSTALL`, and the `cd` at
+the bottom all point to specific local directories that will not exist on
+your machine. Open `env.sh` and update the three lines marked `EDIT THIS` /
+`EDIT THESE` to point at your own GUNDAM checkout/build and your own clone of
+this repo. Then source it:
+
+```bash
+source env.sh
+```
 
 ---
 
@@ -27,14 +44,18 @@ Run the build macro from the repository root, then move the output to the expect
 
 ```bash
 root mockDatasetGen/buildInputRootFile.C
-mv mydataset.root example/advanced/simpleFit/inputs/datasets/mydataset.root
+mv mydataset.root mockDatasetGen/mydataset.root
 ```
+
+Every config across `basic/`, `extended/`, and `advanced/` reads the dataset from
+`./mockDatasetGen/mydataset.root` (relative to the repository root), so this is
+the one location it needs to end up in.
 
 The expected output from the build macro:
 
 ```
 Processing mockDatasetGen/buildInputRootFile.C...
-File writen in ./example/advanced/simpleFit/inputs/datasets/mydataset.root:/
+File written to: /path/to/gundam-input-tutorial_new/mydataset.root
 ```
 
 ---
@@ -45,7 +66,7 @@ The `basic/` and `extended/` packages keep their small `.txt` binning and select
 tables right next to each config file.
 Every step is fully standalone and can be run in isolation without touching any
 other package — the only shared resource is the ROOT dataset in
-`example/advanced/simpleFit/inputs/datasets/`.
+`mockDatasetGen/mydataset.root`.
 
 The `advanced/` package mirrors how a real large-scale analysis is organized:
 configuration is split across a dedicated `inputs/` sub-tree (datasets, samples,
@@ -60,20 +81,23 @@ This separation makes each concern independently readable and editable.
 ### Basic examples (steps 01–03)
 
 ```bash
-gundamFitter -c example/basic/B01_load_dataset.yaml
+gundamFitter -d -c example/basic/B01_load_dataset.yaml
 gundamFitter -d -c example/basic/B02_selection.yaml
 gundamFitter -c example/basic/B03_normparam.yaml
 gundamFitter -c example/basic/B04_datafit.yaml
 
 ```
 
-### Extended examples (steps 04–07)
+### Extended examples (steps 04–10)
 
 ```bash
 gundamFitter -d -c example/extended/E01_multiple_selections.yaml
 gundamFitter -c example/extended/E02_multiple_normparam.yaml
 gundamFitter -c example/extended/E03_response.yaml
 gundamFitter -c example/extended/E04_correlated_normparam.yaml
+gundamFitter -c example/extended/E05_spline_natural.yaml
+gundamFitter -c example/extended/E06_spline_not_a_knot.yaml
+gundamFitter -c example/extended/E07_graph_interpolation.yaml
 ```
 
 ### Full modular run

@@ -18,5 +18,6 @@ temp/
 # VS Code local settings
 .vscode/
 **/inputs/datasets/*.root
+mockDatasetGen/*.root
 response_functions.pdf
 *.pdf

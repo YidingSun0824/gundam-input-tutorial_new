@@ -45,8 +45,14 @@ GUNDAM interpolation dial types, using the actual Hesse errors extracted from GU
 | `Spline` | `not-a-knot` |
 | `Graph` | *(piecewise linear)* |
 
-The three fit outputs must already exist (run the three fits first — see
-`example/advanced/config_natural.yaml`, `config_not_a_knot.yaml`, `config_graph.yaml`).
+The three fit outputs must already exist (run the three fits first):
+
+```bash
+gundamFitter -c example/extended/E05_spline_natural.yaml
+gundamFitter -c example/extended/E06_spline_not_a_knot.yaml
+gundamFitter -c example/extended/E07_graph_interpolation.yaml
+```
+
 Then, from the repository root:
 
 ```bash
@@ -59,5 +65,5 @@ with the prior σ = 1.0 drawn as a reference line.
 Output:
 
 ```text
-example/advanced/output/plots/interp_comparison.pdf
+example/extended/output/plots/interp_comparison.pdf
 ```

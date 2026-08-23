@@ -10,20 +10,22 @@ All commands are run from the **repository root**.
 
 | File | Purpose |
 |---|---|
-| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by Basic02, Basic03, Basic04 |
+| `selection_1d.txt` | Local 1D binning definition (pmu, 6 bins) used by Basic01–Basic04 |
 
 ---
 
 ### Basic01 — Load dataset
 
 ```
-gundamFitter -c example/basic/B01_load_dataset.yaml
+gundamFitter -d -c example/basic/B01_load_dataset.yaml
 ```
 
 Loads the mock dataset and verifies that the event tree can be read.
-Applies the dataset-level cut (`selection != -1`).
-No sample binning and no parameters are defined.
-Since there isn't binning provided the run will exit with error
+Applies the dataset-level cut (`selection != -1`) with no further selection —
+all topologies are kept together in a single sample, binned in 1D (pmu) using
+the local `selection_1d.txt` file. No parameters are defined.
+Run a dry run using the option `-d`: with zero free parameters there is
+nothing for the minimizer to fit, so a full fit would error out.
 
 ### Basic02 — Add event selection
 

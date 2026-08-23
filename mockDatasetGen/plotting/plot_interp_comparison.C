@@ -5,13 +5,13 @@
 //   Spline (natural cubic), Spline (not-a-knot cubic), Graph (piecewise linear)
 //
 // Run from REPOSITORY ROOT after the three fits have been run:
-//   gundamFitter -c example/advanced/config_natural.yaml
-//   gundamFitter -c example/advanced/config_not_a_knot.yaml
-//   gundamFitter -c example/advanced/config_graph.yaml
+//   gundamFitter -c example/extended/E05_spline_natural.yaml
+//   gundamFitter -c example/extended/E06_spline_not_a_knot.yaml
+//   gundamFitter -c example/extended/E07_graph_interpolation.yaml
 //
 //   root -l -q 'plotting/plot_interp_comparison.C'
 //
-// Output: example/advanced/output/plots/interp_comparison.pdf
+// Output: example/extended/output/plots/interp_comparison.pdf
 
 #include <TCanvas.h>
 #include <TFile.h>
@@ -42,9 +42,9 @@ void plot_interp_comparison() {
     // ── Read post-fit sigmas ─────────────────────────────────────────────────
     const int kN = 3;
     const char* kFiles[kN] = {
-        "example/advanced/output/fit_natural/gundamFitter_config_natural.root",
-        "example/advanced/output/fit_not_a_knot/gundamFitter_config_not_a_knot.root",
-        "example/advanced/output/fit_graph/gundamFitter_config_graph.root"
+        "example/extended/output/gundamFitter_E05_spline_natural.root",
+        "example/extended/output/gundamFitter_E06_spline_not_a_knot.root",
+        "example/extended/output/gundamFitter_E07_graph_interpolation.root"
     };
     const char* kLabels[kN] = {
         "Spline (natural)",
@@ -144,8 +144,8 @@ void plot_interp_comparison() {
     leg->Draw();
 
     // ── Save ─────────────────────────────────────────────────────────────────
-    gSystem->mkdir("example/advanced/output/plots", kTRUE);
-    const char* outPDF = "example/advanced/output/plots/interp_comparison.pdf";
+    gSystem->mkdir("example/extended/output/plots", kTRUE);
+    const char* outPDF = "example/extended/output/plots/interp_comparison.pdf";
     c->Print(outPDF);
     std::cout << "\nSaved => " << outPDF << std::endl;
 }
