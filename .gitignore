@@ -17,6 +17,6 @@ temp/
 
 # VS Code local settings
 .vscode/
-inputs/datasets/mydataset.root
+**/inputs/datasets/*.root
 response_functions.pdf
 *.pdf
