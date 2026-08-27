@@ -21,15 +21,21 @@ The entry point for the full modular run is `example/advanced/simpleFit/mainConf
 
 ## Environment setup
 
-`env.sh` at the repository root sets up ROOT and puts `gundamFitter` on `PATH`
-(via `GUNDAM_INSTALL`).
+For installing GUNDAM itself (cloning, building, directory layout), follow
+the official [GUNDAM Getting Started guide](https://gundam-organization.github.io/gundam/GettingStarted.html) —
+that's the source of truth, not this repo.
 
-**Before sourcing it, you must edit it first.** It hardcodes the paths from the
-machine it was written on — `GUNDAM_ROOT`, `GUNDAM_INSTALL`, and the `cd` at
-the bottom all point to specific local directories that will not exist on
-your machine. Open `env.sh` and update the three lines marked `EDIT THIS` /
-`EDIT THESE` to point at your own GUNDAM checkout/build and your own clone of
-this repo. Then source it:
+`env.sh` at the repository root loads ROOT and puts `gundamFitter` on `PATH`
+for you. It follows the official guide's own directory convention
+(`WORK_DIR` / `REPO_DIR` / `BUILD_DIR` / `INSTALL_DIR`), so **if you installed
+GUNDAM by following that guide as-is, `env.sh` should work with no edits.**
+It only needs editing if your install deviates from the guide's defaults
+(different `WORK_DIR`, a custom `CMAKE_INSTALL_PREFIX`, etc.) — the lines to
+change are marked `EDIT IF YOUR INSTALL DIFFERS` in the file. The `cd` at the
+bottom needs no editing regardless of where you cloned this tutorial repo —
+it resolves itself at runtime.
+
+Source it before running any of the commands below:
 
 ```bash
 source env.sh
