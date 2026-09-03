@@ -25,7 +25,7 @@ fitterEngineConfig:
 
           selectionCutFormula: "selection != -1"
 
-          nominalWeightFormula:
+          nominalTreeWeightFormula:
             - "asimovWeight"
             
     propagatorConfig:

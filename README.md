@@ -121,7 +121,7 @@ gundamFitter -a -c example/advanced/simpleFit/mainConfig.yaml -t 4
 | Option | Description |
 |---|---|
 | `dialType` | One of: `Normalization`, `Spline`, `Graph`, `Surface`, `Tabulated`, `Kriged`, `Formula` |
-| `dialSubType` | Variant within a type (e.g. `MonotonicSpline`, `Bilinear`) |
+| `options` | Variant within a type (e.g. `MonotonicSpline`, `Bilinear`) |
 | `isEnabled` | `true` / `false` — skip this dial set without removing it |
 | `applyOnDataSets` | List of dataset names; `["*"]` matches all |
 | `applyCondition` | Single ROOT formula string; dial only applies when true |
@@ -136,7 +136,7 @@ gundamFitter -a -c example/advanced/simpleFit/mainConfig.yaml -t 4
 | `printDialsSummary` | Print dial summary table at startup |
 | `definitionRange` | Parameter range over which the dial is defined |
 | `mirrorDefinitionRange` | Definition range used for the mirrored side |
-| `dialInputList` | Explicit list of dial input objects (alternative to `dialLeafName`) |
+| `dialInputList` | Explicit list of dial input objects (alternative to `treeExpression`) |
 | `dialsTreePath` | Path inside a ROOT file to the tree holding dial objects |
 
 ### Type-specific options
@@ -149,25 +149,25 @@ gundamFitter -a -c example/advanced/simpleFit/mainConfig.yaml -t 4
 #### Spline
 | Option | Description |
 |---|---|
-| `dialLeafName` | Branch name of `TClonesArray<TGraph>` in the event tree |
+| `treeExpression` | Branch name of `TClonesArray<TGraph>` in the event tree |
 | `dialsFilePath` | External ROOT file holding spline objects |
 | `dialsList` | Explicit list of spline object names inside `dialsFilePath` |
-| `dialSubType` | `Uniform` \| `General` \| `Monotonic` \| `Akima` |
+| `options` | `Uniform` \| `General` \| `Monotonic` \| `Akima` |
 
 #### Graph
 | Option | Description |
 |---|---|
-| `dialLeafName` | Branch name of `TClonesArray<TGraph>` in the event tree |
+| `treeExpression` | Branch name of `TClonesArray<TGraph>` in the event tree |
 | `dialsFilePath` | External ROOT file holding graph objects |
 | `dialsList` | Explicit list of graph object names inside `dialsFilePath` |
 
 #### Surface
 | Option | Description |
 |---|---|
-| `dialLeafName` | Branch name identifying which surface bin each event falls in |
+| `treeExpression` | Branch name identifying which surface bin each event falls in |
 | `dialsFilePath` | External ROOT file holding the 2-D surface |
 | `dialsList` | Explicit list of surface object names |
-| `dialSubType` | `Bilinear` \| `Bicubic` |
+| `options` | `Bilinear` \| `Bicubic` |
 
 #### Tabulated
 | Option | Description |

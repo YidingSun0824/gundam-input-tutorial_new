@@ -26,7 +26,7 @@ fitterEngineConfig:
 
           selectionCutFormula: "selection != -1"
 
-          nominalWeightFormula:
+          nominalTreeWeightFormula:
             - "asimovWeight"
 
     propagatorConfig:
@@ -55,11 +55,11 @@ fitterEngineConfig:
         parameterSetList:
           - name: "Correlated normalization parameters"
             isEnabled: true
-            useEigenDecompInFit: false
-            allowPca: false
+            enableEigenDecomp: false
+            enablePca: false
             useOnlyOneParameterPerEvent: true
-            covarianceMatrixFilePath: "./example/extended/covarianceFile.root"
-            covarianceMatrixTMatrixD: "covarianceMatrix"
+            parameterDefinitionFilePath: "./example/extended/covarianceFile.root"
+            covarianceMatrix: "covarianceMatrix"
             dialSetDefinitions:
               - applyOnDataSets: [ "My dataset 1" ]
                 parametersBinningPath: "./example/extended/correlated_parameters.txt"
@@ -88,8 +88,8 @@ fitterEngineConfig:
                 throwLimits: [0.0, 2.0]
                 dialSetDefinitions:
                   - dialType: Spline
-                    dialSubType: "natural"
-                    dialLeafName: par3_TGraph
+                    options: "natural"
+                    treeExpression: par3_TGraph
                     applyOnDataSets: [ "My dataset 1" ]
                     allowDialExtrapolation: false
                     useMirrorDial: false
