@@ -65,7 +65,9 @@ gundamFitter -c example/extended/E04_correlated_normparam.yaml
 
 Replaces free normalization parameters with a covariance-matrix-driven set.
 The parameter binning is read from `correlated_parameters.txt` (enu, 11 bins)
-and the covariance matrix is read from `covarianceFile.root`.
+and the covariance matrix is read from `covarianceFile.root`. See
+[Regenerating the covariance file](#regenerating-the-covariance-file) below
+for how that file is built and what format GUNDAM expects.
 
 ### Extended05 — Spline (natural) interpolation
 
@@ -100,6 +102,46 @@ Together, Extended05–Extended07 compare post-fit uncertainty across three
 interpolation methods applied to the same intentionally non-smooth
 systematic (`par3_TGraph`). See `mockDatasetGen/plotting/plot_interp_comparison.C`
 for a script that plots the comparison after all three fits have been run.
+
+---
+
+## Regenerating the covariance file
+
+`covarianceFile.root` (used by Extended04–Extended07) is a ROOT file holding
+a single object:
+
+| ROOT key | Class | Meaning |
+|---|---|---|
+| `covarianceMatrix` | `TMatrixT<double>` | The 11×11 covariance matrix for the 11 `enu`-binned correlated normalization parameters defined in `correlated_parameters.txt`. Row/column order matches that file's bin order (top to bottom = index 0 to 10). |
+
+This is the only object GUNDAM reads for this parameter set — the yaml
+(`covarianceMatrixTMatrixD: "covarianceMatrix"`) points straight at it. There
+is no embedded parameter-name or prior-value object in this file. GUNDAM
+falls back to its defaults when they're absent: parameters are auto-numbered
+`#0`–`#10` by row/column index (you'll see this in fit output, e.g.
+`Correlated normalization parameters/#0`), and every prior defaults to `1.0`.
+
+GUNDAM does support two additional, fully optional objects in a covariance
+file, if you want named parameters or non-default priors instead of relying
+on those defaults:
+
+| ROOT key (your choice of string) | Class | yaml field | Purpose |
+|---|---|---|---|
+| e.g. `parameterNameList` | `TObjArray` of `TObjString`, written with `TObject::kSingleKey` | `parameterNameTObjArray` | Human-readable name per parameter, instead of auto-numbered `#i` |
+| e.g. `parameterPriorValueList` | `TVectorT<double>` | `parameterPriorTVectorD` | Prior value per parameter, instead of the `1.0` default |
+
+`example/extended/makeCovFile.C` is a worked example showing how to build a
+file like this from scratch — it reproduces `covarianceFile.root`'s
+`covarianceMatrix` key exactly (same class, same 11×11 values, same order),
+and additionally demonstrates the two optional name/prior objects above
+(populated with synthesized bin-edge names and the `1.0` default, since
+neither is actually present in the tracked file). It writes to a separate
+file, `covarianceFile_regenerated.root`, and never touches the tracked
+`covarianceFile.root`. Run it with:
+
+```
+root example/extended/makeCovFile.C
+```
 
 ---
 
