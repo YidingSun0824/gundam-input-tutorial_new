@@ -115,7 +115,7 @@ a single object:
 | `covarianceMatrix` | `TMatrixT<double>` | The 11×11 covariance matrix for the 11 `enu`-binned correlated normalization parameters defined in `correlated_parameters.txt`. Row/column order matches that file's bin order (top to bottom = index 0 to 10). |
 
 This is the only object GUNDAM reads for this parameter set — the yaml
-(`covarianceMatrixTMatrixD: "covarianceMatrix"`) points straight at it. There
+(`covarianceMatrix: "covarianceMatrix"`) points straight at it. There
 is no embedded parameter-name or prior-value object in this file. GUNDAM
 falls back to its defaults when they're absent: parameters are auto-numbered
 `#0`–`#10` by row/column index (you'll see this in fit output, e.g.
@@ -127,8 +127,8 @@ on those defaults:
 
 | ROOT key (your choice of string) | Class | yaml field | Purpose |
 |---|---|---|---|
-| e.g. `parameterNameList` | `TObjArray` of `TObjString`, written with `TObject::kSingleKey` | `parameterNameTObjArray` | Human-readable name per parameter, instead of auto-numbered `#i` |
-| e.g. `parameterPriorValueList` | `TVectorT<double>` | `parameterPriorTVectorD` | Prior value per parameter, instead of the `1.0` default |
+| e.g. `parameterNameList` | `TObjArray` of `TObjString`, written with `TObject::kSingleKey` | `parameterNameList` | Human-readable name per parameter, instead of auto-numbered `#i` |
+| e.g. `parameterPriorValueList` | `TVectorT<double>` | `parameterPriorValueList` | Prior value per parameter, instead of the `1.0` default |
 
 `example/extended/makeCovFile.C` is a worked example showing how to build a
 file like this from scratch — it reproduces `covarianceFile.root`'s
