@@ -94,7 +94,7 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Graph
-            dialLeafName: par1_TGraph
+            treeExpression: par1_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             minDialResponse: 0.0
@@ -102,7 +102,7 @@ parameterSetList:
 
       # ── Spline ────────────────────────────────────────────────────────────
       # Per-event spline built from a TClonesArray<TGraph> branch.
-      #   dialSubType: not-a-knot | natural | catmull-rom | akima
+      #   options: not-a-knot | natural | catmull-rom | akima
       #                monotonic, <any of the above>
       #                uniformity(<tolerance>)   e.g. uniformity(1E-3)
       #                ROOT
@@ -121,8 +121,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "not-a-knot"
-            dialLeafName: par2_TGraph
+            options: "not-a-knot"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -141,8 +141,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "natural"
-            dialLeafName: par2_TGraph
+            options: "natural"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -164,8 +164,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "catmull-rom"
-            dialLeafName: par2_TGraph
+            options: "catmull-rom"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -184,8 +184,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "akima"
-            dialLeafName: par2_TGraph
+            options: "akima"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -210,8 +210,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "monotonic, not-a-knot"
-            dialLeafName: par2_TGraph
+            options: "monotonic, not-a-knot"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -229,8 +229,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "monotonic, natural"
-            dialLeafName: par2_TGraph
+            options: "monotonic, natural"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -248,8 +248,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "monotonic, catmull-rom"
-            dialLeafName: par2_TGraph
+            options: "monotonic, catmull-rom"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -267,8 +267,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "monotonic, akima"
-            dialLeafName: par2_TGraph
+            options: "monotonic, akima"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -290,8 +290,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "uniformity(1E-3)"
-            dialLeafName: par2_TGraph
+            options: "uniformity(1E-3)"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -310,8 +310,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Spline
-            dialSubType: "ROOT"
-            dialLeafName: par2_TGraph
+            options: "ROOT"
+            treeExpression: par2_TGraph
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             useMirrorDial: false
@@ -322,8 +322,8 @@ parameterSetList:
       # ── Surface ───────────────────────────────────────────────────────────
       # 2-D interpolation over a dial surface stored in an external ROOT file.
       # Enable after providing dialsFilePath.
-      # type-specific options: dialLeafName, dialsFilePath, dialsList, dialSubType
-      #   dialSubType: Bilinear | Bicubic
+      # type-specific options: treeExpression, dialsFilePath, dialsList, options
+      #   options: Bilinear | Bicubic
       - name: "Par4"
         isEnabled: false
         priorType: Flat
@@ -336,8 +336,8 @@ parameterSetList:
         throwLimits: [0.0, 2.0]
         dialSetDefinitions:
           - dialType: Surface
-            dialSubType: Bilinear
-            dialLeafName: par1_TGraph        # placeholder
+            options: Bilinear
+            treeExpression: par1_TGraph        # placeholder
             applyOnDataSets: [ "My dataset 1" ]
             allowDialExtrapolation: false
             # dialsFilePath: "./example/advanced/simpleFit/inputs/parameters/surface/surface.root"

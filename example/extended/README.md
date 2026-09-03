@@ -54,7 +54,7 @@ Each row in `parameters.txt` defines one parameter bin in reaction × pmu space.
 gundamFitter -c example/extended/E03_response.yaml
 ```
 
-Extends step 05 with a Spline dial (`dialType: Spline`, `dialSubType: not-a-knot`)
+Extends step 05 with a Spline dial (`dialType: Spline`, `options: not-a-knot`)
 reading the per-event response function from the `par1_TGraph` branch.
 
 ### Extended04 — Correlated normalization parameters
@@ -74,7 +74,7 @@ gundamFitter -c example/extended/E05_spline_natural.yaml
 ```
 
 Adds a `Dummy Systematics` parameter set with a Spline dial (`dialType: Spline`,
-`dialSubType: natural`) reading the intentionally non-smooth response function
+`options: natural`) reading the intentionally non-smooth response function
 from the `par3_TGraph` branch, on top of the free and correlated normalization
 parameters from Extended02–Extended04.
 
@@ -84,7 +84,7 @@ parameters from Extended02–Extended04.
 gundamFitter -c example/extended/E06_spline_not_a_knot.yaml
 ```
 
-Same as Extended05, but the `par3_TGraph` dial uses `dialSubType: not-a-knot`
+Same as Extended05, but the `par3_TGraph` dial uses `options: not-a-knot`
 instead of `natural`.
 
 ### Extended07 — Graph interpolation
@@ -94,7 +94,7 @@ gundamFitter -c example/extended/E07_graph_interpolation.yaml
 ```
 
 Same as Extended05, but the `par3_TGraph` dial uses `dialType: Graph`
-(piecewise-linear interpolation, no `dialSubType`) instead of a Spline.
+(piecewise-linear interpolation, no `options`) instead of a Spline.
 
 Together, Extended05–Extended07 compare post-fit uncertainty across three
 interpolation methods applied to the same intentionally non-smooth

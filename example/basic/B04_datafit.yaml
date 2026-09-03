@@ -22,7 +22,7 @@ fitterEngineConfig:
             - "./mockDatasetGen/mydataset.root"
 
          tree: "events"
-         nominalWeightFormula:
+         nominalTreeWeightFormula:
            - "asimovWeight"
 
         data:
