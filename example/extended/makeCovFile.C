@@ -6,9 +6,9 @@
 //  read by example/extended/E04_correlated_normparam.yaml (and E05-E07,
 //  which reuse the same block):
 //
-//    covarianceMatrixFilePath: "./example/extended/covarianceFile.root"
-//    covarianceMatrixTMatrixD: "covarianceMatrix"
-//    parametersBinningPath:    "./example/extended/correlated_parameters.txt"
+//    parameterDefinitionFilePath: "./example/extended/covarianceFile.root"
+//    covarianceMatrix:            "covarianceMatrix"
+//    parametersBinningPath:       "./example/extended/correlated_parameters.txt"
 //
 //  IMPORTANT: this writes to a DIFFERENT file (covarianceFile_regenerated.root)
 //  and never touches the tracked example/extended/covarianceFile.root, which
@@ -22,8 +22,10 @@
 //    - The `parameterNameList` (TObjArray, single key) and
 //      `parameterPriorValueList` (TVectorT<double>) keys are NOT present in
 //      the tracked covarianceFile.root at all. GUNDAM supports reading them
-//      (ParameterSet.cpp fields `parameterNameTObjArray` /
-//      `parameterPriorTVectorD`), but E04-E07's yaml never asks for them, so
+//      (ParameterSet.cpp fields `parameterNameList` /
+//      `parameterPriorValueList`, aliased from the deprecated names
+//      `parameterNameTObjArray` / `parameterPriorTVectorD`), but E04-E07's
+//      yaml never asks for them, so
 //      GUNDAM falls back to its defaults: parameters auto-numbered "#0".."#10"
 //      by row/column index, and every prior defaulting to 1.0 (confirmed in
 //      GUNDAM source, ParameterSet.cpp: `else{ par.setPriorValue(1); }`).
@@ -123,7 +125,7 @@ void makeCovFile(const char* outfile = "example/extended/covarianceFile_regenera
     f.WriteObject(prior, "parameterPriorValueList");
 
     // Write the matrix -- this is the key GUNDAM's E04-E07 configs actually
-    // read (covarianceMatrixTMatrixD: "covarianceMatrix")
+    // read (covarianceMatrix: "covarianceMatrix")
     f.WriteObject(cov, "covarianceMatrix");
 
     f.Close();
